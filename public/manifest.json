@@ -1,0 +1,17 @@
+{
+  "name": "Protocolo Té Quemagrasas",
+  "short_name": "Té Quemagrasas",
+  "description": "Tu metabolismo. Tu protocolo.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1D4A1A",
+  "theme_color": "#1D4A1A",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/pv99XjXM/cone-do-App-PWA.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

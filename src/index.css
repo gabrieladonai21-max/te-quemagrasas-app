@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  
+  --color-brand-dark: #1D4A1A;
+  --color-brand-medium: #2E7D32;
+  --color-brand-leaf: #4A8C35;
+  --color-brand-amber: #E8A020;
+  --color-brand-bg: #F7FAF5;
+  --color-brand-text: #1A2E1A;
+}
+
+* {
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+@layer base {
+  body {
+    background: #1A2E1A;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+    @apply font-sans;
+  }
+  
+  #root {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    background: #F7FAF5;
+    position: relative;
+    box-shadow: 0 0 60px rgba(0,0,0,0.35);
+    overflow-x: hidden;
+  }
+}
+
+.fixed-element {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+}
+
+@keyframes screenEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes screenSlide {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.screen-enter {
+  animation: screenEnter 0.35s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+.screen-slide {
+  animation: screenSlide 0.35s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* ==================== JUSTIFICACIÓN DE TEXTO ==================== */
+p, .text-justify {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* ==================== RESPONSIVIDAD MOBILE/TABLET/DESKTOP ==================== */
+
+/* Mobile (0-640px) */
+@media (max-width: 640px) {
+  h1, .text-3xl {
+    font-size: 1.75rem !important;
+    line-height: 2rem !important;
+  }
+  
+  h2, .text-2xl {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+  
+  .p-8 {
+    padding: 1.5rem !important;
+  }
+  
+  .p-6 {
+    padding: 1rem !important;
+  }
+  
+  .grid-cols-2 {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Tablet (641px - 1023px) */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .container {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* ==================== LANDSCAPE MOBILE ==================== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .py-8 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+}
