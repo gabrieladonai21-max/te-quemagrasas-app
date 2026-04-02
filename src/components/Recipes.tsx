@@ -7,7 +7,7 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Lock, ChevronRight, Search, Clock, Thermometer, Flame, X, CheckCircle2, ExternalLink, Sparkles } from 'lucide-react';
 import { UserProfile, Recipe } from '../types';
-import { getRecipe } from '../services/recipeService';
+import { getRecipe, getRecipeImage } from '../services/recipeService';
 import { METABOLIC_TYPES, SOPAS_RECIPES, MODULES_METADATA, SPANISH_STRINGS } from '../constants';
 
 interface RecipesProps {
@@ -175,8 +175,8 @@ export const Recipes: React.FC<RecipesProps> = ({ user, onOpenDay, initialTab = 
                     }`}
                   >
                     <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 bg-[#F7FAF5] flex items-center justify-center">
-                      {recipe.image ? (
-                        <img src={recipe.image} alt={recipe.name} className="w-full h-full object-cover" />
+                      {recipe.image || getRecipeImage(recipe.name) ? (
+                        <img src={recipe.image || getRecipeImage(recipe.name)} alt={recipe.name} className="w-full h-full object-cover" />
                       ) : (
                         <Sparkles className="w-6 h-6 text-[#E8A020]" />
                       )}
@@ -241,7 +241,7 @@ export const Recipes: React.FC<RecipesProps> = ({ user, onOpenDay, initialTab = 
                       onClick={() => hasAccess ? handleRecipeClick({ ...sopa, period: 'Sopa Termogénica', globalDay: (i + 1) * 3 }) : handleSopaClick()}
                     >
                       <img 
-                        src={sopa.image} 
+                        src={sopa.image || getRecipeImage(sopa.name)} 
                         alt={sopa.name} 
                         className={`w-full h-full object-cover ${!hasAccess ? 'blur-sm' : ''}`}
                       />
@@ -302,10 +302,10 @@ export const Recipes: React.FC<RecipesProps> = ({ user, onOpenDay, initialTab = 
                 <X className="w-6 h-6" />
               </button>
 
-              {viewingRecipe.recipe.image ? (
+              {viewingRecipe.recipe.image || getRecipeImage(viewingRecipe.recipe.name || viewingRecipe.recipe.nome) ? (
                 <div className="relative h-72 shrink-0">
                   <img 
-                    src={viewingRecipe.recipe.image} 
+                    src={viewingRecipe.recipe.image || getRecipeImage(viewingRecipe.recipe.name || viewingRecipe.recipe.nome)} 
                     alt={viewingRecipe.recipe.name || viewingRecipe.recipe.nome} 
                     className="w-full h-full object-cover"
                   />

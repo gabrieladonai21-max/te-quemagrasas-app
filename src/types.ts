@@ -9,6 +9,7 @@ export interface UserProfile {
   uid: string;
   email: string;
   name: string;
+  photoURL?: string;
   metabolicType?: MetabolicType;
   completedDays: string[]; // e.g., "S1D1", "S1D2"
   modulos: string[]; // e.g., "vitalicio", "ayuno", "firmeza", "sopas"
@@ -43,6 +44,7 @@ export interface BonusRecipe {
   ingredientes: string[];
   preparo: string;
   beneficio: string;
+  image?: string;
 }
 
 export interface DayRecipes {

@@ -32,12 +32,79 @@ export default function App() {
   const [showUpsell, setShowUpsell] = useState<'vitalicio' | 'suplemento' | 'consulta' | null>(null);
   const [newMedal, setNewMedal] = useState<{ id: string; title: string } | null>(null);
   const [recipesInitialTab, setRecipesInitialTab] = useState<'blends' | 'sopas'>('blends');
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstallBtn, setShowInstallBtn] = useState(false);
+
+  useEffect(() => {
+    // Check if already installed
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+
+    if (isStandalone) {
+      setShowInstallBtn(false);
+      return;
+    }
+
+    if (isIOS) {
+      setShowInstallBtn(true);
+    }
+
+    const handleBeforeInstallPrompt = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallBtn(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    window.addEventListener('appinstalled', () => {
+      setShowInstallBtn(false);
+      setDeferredPrompt(null);
+    });
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) {
+      // Check if iOS
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      if (isIOS) {
+        alert('Para instalar en iOS: Pulsa el botón "Compartir" y selecciona "Añadir a la pantalla de inicio" 📲');
+      } else {
+        alert('La instalación nativa no está disponible en este navegador. Inténtalo en Chrome o Edge.');
+      }
+      return;
+    }
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setShowInstallBtn(false);
+    }
+    setDeferredPrompt(null);
+  };
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
+    const savedMetabolicType = localStorage.getItem('metabolicType') as MetabolicType | null;
+    const urlParams = new URLSearchParams(window.location.search);
+    const screenParam = urlParams.get('screen') as Screen;
+
     if (savedUser) {
-      setUser(JSON.parse(savedUser));
-      setScreen('dashboard');
+      const parsedUser = JSON.parse(savedUser);
+      // Ensure metabolicType is synced if it exists in savedUser but not in separate key
+      if (parsedUser.metabolicType && !savedMetabolicType) {
+        localStorage.setItem('metabolicType', parsedUser.metabolicType);
+      }
+      setUser({
+        ...parsedUser,
+        metabolicType: savedMetabolicType || parsedUser.metabolicType
+      });
+      
+      // We DO NOT set the screen here anymore. 
+      // The screen will progress from splash -> login -> dashboard/selection
     }
   }, []);
 
@@ -47,19 +114,37 @@ export default function App() {
   };
 
   const handleLogin = (email: string) => {
+    const savedMetabolicType = localStorage.getItem('metabolicType') as MetabolicType | null;
     const userName = email.split('@')[0].split('.')[0];
     const capitalizedName = userName.charAt(0).toUpperCase() + userName.slice(1);
+    
     const newUser: UserProfile = {
       uid: 'mock-uid', email, name: capitalizedName, completedDays: [], modulos: ['core'],
       medals: [], isPremium: false, isAdmin: false, createdAt: new Date().toISOString(),
+      metabolicType: savedMetabolicType || undefined
     };
+    
     setUser(newUser);
-    navegarPara('selection');
+    localStorage.setItem('user', JSON.stringify(newUser));
+
+    if (savedMetabolicType) {
+      navegarPara('dashboard');
+    } else {
+      navegarPara('selection');
+    }
   };
 
-  const handleSelectType = (type: MetabolicType) => {
+  const handleSelectType = (type: MetabolicType, ingredients?: string[]) => {
     if (user) {
-      setUser({ ...user, metabolicType: type });
+      const updatedUser = { 
+        ...user, 
+        metabolicType: type,
+        ingredientes_disponibles: ingredients || user.ingredientes_disponibles || []
+      };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      localStorage.setItem('metabolicType', type);
+      
       navegarPara('ingredients');
     }
   };
@@ -138,19 +223,19 @@ export default function App() {
       case 'recipes': return user && <Recipes user={user} onOpenDay={handleOpenDay} initialTab={recipesInitialTab} />;
       case 'profile': return user && <Profile user={user} onLogout={handleLogout} onTryChangeType={() => navegarPara('selection')} onUpdateUser={handleUpdateUser} onOpenFAQ={() => navegarPara('faq')} onOpenSupport={() => navegarPara('support')} onOpenNotifications={() => navegarPara('notifications')} />;
       case 'faq': return <FAQ onBack={() => navegarPara('profile')} />;
-      case 'support': return <SoporteIA onBack={() => navegarPara('profile')} />;
+      case 'support': return <SoporteIA onBack={() => navegarPara('profile')} onNavigate={navegarPara} userName={user?.name} />;
       case 'notifications': return <NotificationsSettings onBack={() => navegarPara('profile')} />;
       default: return <Splash onComplete={() => navegarPara('login')} />;
     }
   };
 
   const showNav = ['dashboard', 'plan', 'modules', 'recipes', 'profile', 'shopping'].includes(screen);
-  const showStickyHeader = showNav && user?.metabolicType;
+  const showStickyHeader = showNav && user?.metabolicType && !['profile', 'recipes'].includes(screen);
 
   return (
     <Layout>
       {showStickyHeader && user && (
-        <div className="fixed top-0 left-0 right-0 h-[72px] z-[100] px-4 md:px-6 flex items-center shadow-lg rounded-b-[20px] text-white max-w-[1400px] mx-auto"
+        <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[72px] z-[100] px-4 md:px-6 flex items-center shadow-lg rounded-b-[20px] text-white max-w-[480px]"
           style={{ background: 'linear-gradient(135deg, #1D4A1A 0%, #2E7D32 100%)' }}>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
@@ -161,11 +246,19 @@ export default function App() {
               <span className="text-[10px] font-medium opacity-70 uppercase tracking-widest leading-tight">Protocolo Activo</span>
             </div>
           </div>
+          {showInstallBtn && (
+            <button 
+              onClick={handleInstallClick}
+              className="ml-auto bg-white/20 hover:bg-white/30 text-white text-[10px] font-bold px-3 py-1.5 rounded-full border border-white/30 transition-all flex items-center gap-1.5"
+            >
+              📲 Instalar App
+            </button>
+          )}
         </div>
       )}
       <div className={`${showStickyHeader ? 'pt-[72px]' : ''}`} key={screenKey}>{renderScreen()}</div>
       {showNav && (
-        <nav className="fixed bottom-0 left-0 right-0 h-20 bg-white border-t border-[#E8EDE7] flex items-center justify-around z-[100] px-2 md:px-4 shadow-2xl max-w-[1400px] mx-auto">
+        <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full h-20 bg-white border-t border-[#E8EDE7] flex items-center justify-around z-[100] px-2 md:px-4 shadow-2xl max-w-[480px]">
           <NavButton icon={<Home />} label="Inicio" active={screen === 'dashboard'} onClick={() => navegarPara('dashboard')} />
           <NavButton icon={<Calendar />} label="Protocolo" active={screen === 'plan'} onClick={() => navegarPara('plan')} />
           <NavButton icon={<Lock />} label="Módulos" active={screen === 'modules'} onClick={() => navegarPara('modules')} />

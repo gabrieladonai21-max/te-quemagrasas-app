@@ -97,7 +97,7 @@ export const DayView: React.FC<DayViewProps> = ({ s, d, user, isCompleted, onBac
             onClick={() => setShowRecipeModal(recipe)}
           >
             <img 
-              src={recipe.image || 'https://i.ibb.co/tMDmYLRB/download-2.jpg'} 
+              src={recipe.image || 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-verde-iniciador.jpg'} 
               alt={recipe.name} 
               className="w-full h-full object-cover"
             />
@@ -166,7 +166,7 @@ export const DayView: React.FC<DayViewProps> = ({ s, d, user, isCompleted, onBac
         >
           <div className="relative h-48">
             <img 
-              src={recipe.image || 'https://i.ibb.co/tMDmYLRB/download-2.jpg'} 
+              src={recipe.image || 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-verde-iniciador.jpg'} 
               alt={recipe.name}
               className="w-full h-full object-cover"
             />
@@ -243,26 +243,36 @@ export const DayView: React.FC<DayViewProps> = ({ s, d, user, isCompleted, onBac
         background: 'linear-gradient(to right, #FFFBF0, transparent)',
         padding: '12px 14px'
       }}>
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2">
-            <svg viewBox="0 0 20 20" width="16" height="16">
-              <path d="M10 1l2.5 6H19l-5.5 4 2 6.5L10 14l-5.5 3.5 2-6.5L1 7h6.5z"
-                fill="#E8A020" stroke="#C9953A" strokeWidth="0.5"/>
-            </svg>
-            <span className="text-[9px] font-bold text-[#C9953A] uppercase tracking-widest">BONUS DEL DÍA</span>
+        <div className="flex gap-4">
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <svg viewBox="0 0 20 20" width="16" height="16">
+                  <path d="M10 1l2.5 6H19l-5.5 4 2 6.5L10 14l-5.5 3.5 2-6.5L1 7h6.5z"
+                    fill="#E8A020" stroke="#C9953A" strokeWidth="0.5"/>
+                </svg>
+                <span className="text-[9px] font-bold text-[#C9953A] uppercase tracking-widest">BONUS DEL DÍA</span>
+              </div>
+              {bonusTaken && (
+                <span className="text-[9px] font-bold text-[#E8A020] flex items-center gap-1">
+                  ★ Bonus tomado
+                </span>
+              )}
+            </div>
+            
+            <h4 className="font-serif text-base md:text-lg font-bold text-[#1D4A1A] mb-1">{bonus.nome}</h4>
+            <div className="flex gap-3 text-[10px] text-[#8FA888] font-medium mb-3">
+              <span className="uppercase">{bonus.categoria}</span>
+              <span>•</span>
+              <span>{bonus.horario}</span>
+            </div>
           </div>
-          {bonusTaken && (
-            <span className="text-[9px] font-bold text-[#E8A020] flex items-center gap-1">
-              ★ Bonus tomado
-            </span>
+
+          {bonus.image && (
+            <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 shadow-sm">
+              <img src={bonus.image} alt={bonus.nome} className="w-full h-full object-cover" />
+            </div>
           )}
-        </div>
-        
-        <h4 className="font-serif text-base md:text-lg font-bold text-[#1D4A1A] mb-1">{bonus.nome}</h4>
-        <div className="flex gap-3 text-[10px] text-[#8FA888] font-medium mb-3">
-          <span className="uppercase">{bonus.categoria}</span>
-          <span>•</span>
-          <span>{bonus.horario}</span>
         </div>
 
         <div className="space-y-2 mb-4">

@@ -15,7 +15,7 @@ const MODS = [
     name: 'Mi Protocolo 21 Días', 
     desc: 'Tu plan completo personalizado', 
     link: '#',
-    img: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80'
+    img: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-verde-iniciador.jpg'
   },
   { 
     id: 'vitalicio', 
@@ -31,7 +31,7 @@ const MODS = [
     name: 'Sopa Termogénica', 
     desc: 'Complemento termogénico natural', 
     link: 'https://pay.hotmart.com/E104977226Q',
-    img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800&q=80'
+    img: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/sopa-de-calabaza-y-jengibre.jpg'
   },
   { 
     id: 'ayuno', 

@@ -219,7 +219,7 @@ export const SOPAS_RECIPES = [
     name: 'Sopa de Calabaza y Jengibre', 
     desc: 'Termogénica y saciante', 
     category: 'Termogénica',
-    image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400',
+    image: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/sopa-de-calabaza-y-jengibre.jpg',
     ingredients: ['Calabaza', 'Jengibre', 'Caldo vegetal', 'Aceite coco'],
     steps: [
       'Cortar calabaza en cubos',
@@ -236,7 +236,7 @@ export const SOPAS_RECIPES = [
     name: 'Crema de Brócoli y Cúrcuma', 
     desc: 'Antiinflamatoria y detox', 
     category: 'Termogénica',
-    image: 'https://images.unsplash.com/photo-1588137378633-dea1336ce1e2?w=400',
+    image: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/crema-de-brocoli-y-curcuma.jpg',
     ingredients: ['Brócoli', 'Cúrcuma', 'Caldo vegetal', 'Ajo'],
     steps: [
       'Cocinar brócoli al vapor',
@@ -253,7 +253,7 @@ export const SOPAS_RECIPES = [
     name: 'Sopa de Lentejas y Comino', 
     desc: 'Proteica y activadora', 
     category: 'Termogénica',
-    image: 'https://images.unsplash.com/photo-1604909052743-94e838986d24?w=400',
+    image: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/sopa-de-lentejas-y-comino.jpg',
     ingredients: ['Lentejas', 'Comino', 'Cebolla', 'Zanahoria'],
     steps: [
       'Hervir lentejas',
@@ -270,7 +270,7 @@ export const SOPAS_RECIPES = [
     name: 'Sopa de Tomate y Albahaca', 
     desc: 'Ligera y antioxidante', 
     category: 'Termogénica',
-    image: 'https://images.unsplash.com/photo-1580013759032-c96505e24c1f?w=400',
+    image: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/sopa-de-tomate-y-albahaca.jpg',
     ingredients: ['Tomate', 'Albahaca', 'Ajo', 'Aceite de oliva'],
     steps: [
       'Asar tomates y ajo',
@@ -286,7 +286,7 @@ export const SOPAS_RECIPES = [
     name: 'Sopa de Espinacas y Ajo', 
     desc: 'Hierro y energía pura', 
     category: 'Termogénica',
-    image: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=400',
+    image: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/sopa-de-espinacas-y-ajo.jpg',
     ingredients: ['Espinacas', 'Ajo', 'Cebolla', 'Papas'],
     steps: [
       'Saltear ajo y cebolla',
@@ -303,7 +303,7 @@ export const SOPAS_RECIPES = [
     name: 'Sopa de Zanahoria y Coco', 
     desc: 'Grasas saludables y quema', 
     category: 'Termogénica',
-    image: 'https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?w=400',
+    image: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/sopa-de-zanahoria-y-coco.jpg',
     ingredients: ['Zanahoria', 'Leche de coco', 'Cúrcuma', 'Jengibre'],
     steps: [
       'Cocinar zanahorias',
@@ -320,7 +320,7 @@ export const SOPAS_RECIPES = [
     name: 'Sopa de Champiñones y Tomillo', 
     desc: 'Sabor intenso y saciedad', 
     category: 'Termogénica',
-    image: 'https://images.unsplash.com/photo-1613844237701-8f3664fc2eff?w=400',
+    image: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/sopa-de-champinones-y-tomillo.jpg',
     ingredients: ['Champiñones', 'Tomillo', 'Cebolla', 'Caldo vegetal'],
     steps: [
       'Saltear champiñones y cebolla',

@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, Send, Sparkles, User, Bot } from 'lucide-react';
-import { GoogleGenAI } from "@google/genai";
 
 interface Message {
   role: 'user' | 'bot';
@@ -10,13 +9,14 @@ interface Message {
 
 interface SoporteIAProps {
   onBack: () => void;
+  onNavigate: (screen: any) => void;
+  userName?: string;
 }
 
-export const SoporteIA: React.FC<SoporteIAProps> = ({ onBack }) => {
+export const SoporteIA: React.FC<SoporteIAProps> = ({ onBack, onNavigate, userName }) => {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'bot', text: '¡Hola! Soy tu asistente metabólico. ¿En qué puedo ayudarte hoy con tu protocolo?' }
+    { role: 'bot', text: `¡Hola, ${userName || 'amiga'}! Soy tu asistente personal de Te Quemagrasas. Estoy aquí para que tu jornada sea más ligera y efectiva. ¿Qué necesitas ahora?` }
   ]);
-  const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -26,31 +26,57 @@ export const SoporteIA: React.FC<SoporteIAProps> = ({ onBack }) => {
     }
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+  const options = [
+    { 
+      id: 'funcionamiento', 
+      label: '📖 ¿Cómo funciona el protocolo?', 
+      response: '¡Claro! Aquí tienes la información que necesitas... Es un viaje de 21 días para resetear tu metabolismo. Cada día tienes una guía clara aquí en el app.',
+      action: null 
+    },
+    { 
+      id: 'guia', 
+      label: '📅 Ver mi guía de hoy', 
+      response: '¡Excelente elección! Te llevo ahora mismo a tu guía del día...',
+      action: () => setTimeout(() => onNavigate('plan'), 1500)
+    },
+    { 
+      id: 'recetas', 
+      label: '🥗 Mis recetas saludables', 
+      response: '¡Claro que sí! Te llevo a descubrir las mejores recetas para tu metabolismo...',
+      action: () => setTimeout(() => onNavigate('recipes'), 1500)
+    },
+    { 
+      id: 'faq', 
+      label: '❓ Dudas Frecuentes (FAQ)', 
+      response: '¡Excelente! Aquí tienes las respuestas a las dudas más comunes...',
+      action: () => setTimeout(() => onNavigate('faq'), 1500)
+    },
+    { 
+      id: 'vitalicio', 
+      label: '💎 Acceso Vitalicio', 
+      response: '¡Esta es la mejor inversión para tu salud! El acceso vitalicio te permite mantener tus resultados para siempre, sin suscripciones ni pagos extra. Tendrás todas las actualizaciones futuras de regalo.',
+      action: 'link'
+    }
+  ];
 
-    const userMsg = input.trim();
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
+  const handleOptionClick = (option: typeof options[0]) => {
+    if (isLoading) return;
+
+    setMessages(prev => [...prev, { role: 'user', text: option.label }]);
     setIsLoading(true);
 
-    try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-      const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: userMsg,
-        config: {
-          systemInstruction: "Eres un experto en nutrición y metabolismo para la app 'Protocolo Metabólico'. Tu tono es motivador, profesional y empático. Respondes dudas sobre tés, ayuno, ingredientes y el protocolo de 21 días. Si no sabes algo, sugiere consultar a un médico. Mantén las respuestas breves y directas.",
-        },
-      });
-
-      setMessages(prev => [...prev, { role: 'bot', text: response.text || 'Lo siento, no pude procesar tu solicitud.' }]);
-    } catch (error) {
-      console.error(error);
-      setMessages(prev => [...prev, { role: 'bot', text: 'Hubo un error al conectar con el servidor. Por favor, intenta de nuevo.' }]);
-    } finally {
+    setTimeout(() => {
+      setMessages(prev => [...prev, { role: 'bot', text: option.response }]);
       setIsLoading(false);
-    }
+      
+      if (option.action === 'link') {
+        setTimeout(() => {
+          window.open('https://pay.hotmart.com/example?checkoutMode=10', '_blank');
+        }, 1000);
+      } else if (typeof option.action === 'function') {
+        option.action();
+      }
+    }, 800);
   };
 
   return (
@@ -64,7 +90,7 @@ export const SoporteIA: React.FC<SoporteIAProps> = ({ onBack }) => {
             <Sparkles className="w-5 h-5 text-[#2E7D32]" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-[#1A2E1A]">Soporte IA</h1>
+            <h1 className="text-lg font-bold text-[#1A2E1A]">Centro de Ayuda</h1>
             <div className="flex items-center gap-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
               <span className="text-[10px] font-bold text-green-600 uppercase tracking-wider">En línea</span>
@@ -103,22 +129,17 @@ export const SoporteIA: React.FC<SoporteIAProps> = ({ onBack }) => {
       </div>
 
       <div className="p-6 bg-white border-t border-gray-100 shrink-0">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Escribe tu duda..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-            className="w-full pl-4 pr-12 py-4 bg-gray-50 rounded-2xl border border-gray-100 outline-none focus:border-[#2E7D32] transition-colors"
-          />
-          <button
-            onClick={handleSend}
-            disabled={!input.trim() || isLoading}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-[#2E7D32] text-white rounded-xl disabled:opacity-50"
-          >
-            <Send className="w-5 h-5" />
-          </button>
+        <div className="grid grid-cols-1 gap-2">
+          {options.map((opt) => (
+            <button
+              key={opt.id}
+              onClick={() => handleOptionClick(opt)}
+              disabled={isLoading}
+              className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-green-50 border border-gray-100 hover:border-green-200 rounded-xl text-sm font-medium text-gray-700 transition-all active:scale-[0.98] disabled:opacity-50"
+            >
+              {opt.label}
+            </button>
+          ))}
         </div>
       </div>
     </div>

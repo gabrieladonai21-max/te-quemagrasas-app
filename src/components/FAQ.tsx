@@ -96,7 +96,7 @@ export const FAQ: React.FC<FAQProps> = ({ onBack }) => {
           <HelpCircle className="w-8 h-8 text-[#2E7D32] mx-auto mb-3" />
           <h3 className="font-bold text-[#1A2E1A] mb-1">¿Aún tienes dudas?</h3>
           <p className="text-sm text-gray-600 mb-4">Nuestro soporte inteligente está disponible 24/7 para ayudarte.</p>
-          <button className="text-[#2E7D32] font-bold text-sm underline">Hablar con Soporte IA</button>
+          <button className="text-[#2E7D32] font-bold text-sm underline">Hablar con el Centro de Ayuda</button>
         </div>
       </div>
     </div>

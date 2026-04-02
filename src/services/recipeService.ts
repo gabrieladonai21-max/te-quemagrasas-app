@@ -6,9 +6,9 @@
 import { DayRecipes, MetabolicType, Recipe, BonusRecipe } from '../types';
 import { IMAGE_ASSETS } from '../imageAssets';
 
-export function getRecipeImage(ingredientePrincipal: string): string {
-  const key = ingredientePrincipal.toLowerCase();
-  if (key.includes('verde')) return IMAGE_ASSETS.ingredients['té verde'];
+export function getRecipeImage(name: string, ingredientePrincipal?: string): string {
+  const key = (ingredientePrincipal || name).toLowerCase();
+  if (key.includes('verde') || key.includes('matcha')) return IMAGE_ASSETS.ingredients['té verde'];
   if (key.includes('canela')) return IMAGE_ASSETS.ingredients['canela'];
   if (key.includes('jengibre') || key.includes('gengibre')) return IMAGE_ASSETS.ingredients['jengibre'];
   if (key.includes('hibisco')) return IMAGE_ASSETS.ingredients['hibisco'];
@@ -17,7 +17,7 @@ export function getRecipeImage(ingredientePrincipal: string): string {
   if (key.includes('valeriana')) return IMAGE_ASSETS.ingredients['valeriana'];
   if (key.includes('melissa')) return IMAGE_ASSETS.ingredients['melissa'];
   if (key.includes('boldo') || key.includes('plant')) return IMAGE_ASSETS.ingredients['boldo'];
-  if (key.includes('sopa')) return IMAGE_ASSETS.ingredients['sopas'];
+  if (key.includes('sopa') || key.includes('crema')) return IMAGE_ASSETS.ingredients['sopas'];
   return IMAGE_ASSETS.ui.placeholder;
 }
 
@@ -32,26 +32,26 @@ export interface ExtendedDayRecipes {
 }
 
 const RECIPE_IMAGES = {
-  'te_verde_iniciador': 'https://i.ibb.co/tMDmYLRB/download-2.jpg',
-  'te_jengibre_limon': 'https://i.ibb.co/VW6Vm5Pk/download-3.jpg',
-  'te_canela_detox': 'https://i.ibb.co/N6M5XD4Y/download-4.jpg',
-  'te_menta_refrescante': 'https://i.ibb.co/dwBrQrd4/download-5.jpg',
-  'shot_curcuma_matinal': 'https://i.ibb.co/LXjMtn2M/download-6.jpg',
-  'blend_metabolico': 'https://i.ibb.co/bD1Xfxx/download-7.jpg',
-  'te_hibisco_nocturno': 'https://i.ibb.co/1GWq0kDz/download-8.jpg',
-  'infusion_manzanilla': 'https://i.ibb.co/tp4PW58m/download-9.jpg',
-  'te_negro_energetico': 'https://i.ibb.co/0RGygsBS/download-10.jpg',
-  'shot_jengibre_cayena': 'https://i.ibb.co/LXZPRDTQ/download-11.jpg',
-  'te_cardamomo_especiado': 'https://i.ibb.co/nqKqB1Hj/download-12.jpg',
-  'te_romero_claridad': 'https://i.ibb.co/pjn96CLK/download-13.jpg',
-  'infusion_lavanda_relax': 'https://i.ibb.co/Kpt7DbWf/download-14.jpg',
-  'te_limon_alcalino': 'https://i.ibb.co/xKghQmwX/download-15.jpg',
-  'shot_detox_verde': 'https://i.ibb.co/Fb9j6N82/download-16.jpg',
-  'te_anis_digestivo': 'https://i.ibb.co/KxS9rQqt/download-17.jpg',
-  'blend_antioxidante': 'https://i.ibb.co/cKcBNDz9/download-18.jpg',
-  'te_tomillo_inmune': 'https://i.ibb.co/20gq0fqM/download-19.jpg',
-  'infusion_canela_miel': 'https://i.ibb.co/Pz3Sf5Hn/download-20.jpg',
-  'te_matcha_energia': 'https://i.ibb.co/BH57nc8Z/download-21.jpg',
+  'te_verde_iniciador': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-verde-iniciador.jpg',
+  'te_jengibre_limon': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-jengibre-y-limon.jpg',
+  'te_canela_detox': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/canela-fenogreco.jpg',
+  'te_menta_refrescante': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-de-anis-digestivo.jpg',
+  'shot_curcuma_matinal': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/shot-curcuma.jpg',
+  'blend_metabolico': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/blend-metabolico-premium.jpg',
+  'te_hibisco_nocturno': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/shot-de-hibisco-concentrado.jpg',
+  'infusion_manzanilla': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/Infusion-de-manzanilla-y-lavanda.jpg',
+  'te_negro_energetico': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-matcha-energia.jpg',
+  'shot_jengibre_cayena': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-de-jengibre-y-limon.jpg',
+  'te_cardamomo_especiado': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/canela-fenogreco.jpg',
+  'te_romero_claridad': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-de-tomillo-inmune.jpg',
+  'infusion_lavanda_relax': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/Infusion-de-manzanilla-y-lavanda.jpg',
+  'te_limon_alcalino': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/verde-con-limon.jpg',
+  'shot_detox_verde': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-verde-iniciador.jpg',
+  'te_anis_digestivo': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-de-anis-digestivo.jpg',
+  'blend_antioxidante': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/blend-metabolico-premium.jpg',
+  'te_tomillo_inmune': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-de-tomillo-inmune.jpg',
+  'infusion_canela_miel': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/infusion-canela%20y-miel.jpg',
+  'te_matcha_energia': 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-matcha-energia.jpg',
 };
 
 const REC_DATA_A_M1: ExtendedDayRecipes[] = [
@@ -232,8 +232,16 @@ export function getRecipe(tipo: MetabolicType, sem: number, dia: number): DayRec
   const base = REC_DATA_A_M1[(sem - 1) % REC_DATA_A_M1.length]; 
   
   return {
-    morning: base.morning.map(r => ({ ...r, name: r.name + nivelTag })),
-    night: base.night.map(r => ({ ...r, name: r.name + nivelTag })),
+    morning: base.morning.map(r => ({ 
+      ...r, 
+      name: r.name + nivelTag,
+      image: r.image || getRecipeImage(r.name, r.ingredientePrincipal)
+    })),
+    night: base.night.map(r => ({ 
+      ...r, 
+      name: r.name + nivelTag,
+      image: r.image || getRecipeImage(r.name, r.ingredientePrincipal)
+    })),
     bonus: getBonusForDay(tipo, globalDay),
   };
 }

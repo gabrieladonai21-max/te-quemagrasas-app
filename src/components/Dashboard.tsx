@@ -239,7 +239,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <div 
               className="flex-shrink-0 w-[88%] h-[160px] bg-[#2E7D32] rounded-2xl p-6 text-white relative overflow-hidden snap-center shadow-lg"
             >
-              <div className="absolute inset-0 opacity-40 bg-[url('https://i.ibb.co/tMDmYLRB/download-2.jpg')] bg-cover bg-center" />
+              <div className="absolute inset-0 opacity-40 bg-[url('https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/te-verde-iniciador.jpg')] bg-cover bg-center" />
               <div className="absolute inset-0 bg-black/30" />
               <div className="relative z-10 h-full flex flex-col justify-between">
                 <div>
@@ -268,7 +268,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               }}
               className="flex-shrink-0 w-[88%] h-[160px] bg-[#2E7D32] rounded-2xl p-6 text-white relative overflow-hidden snap-center shadow-lg cursor-pointer"
             >
-              <div className="absolute inset-0 opacity-40 bg-[url('https://i.ibb.co/bD1Xfxx/download-7.jpg')] bg-cover bg-center" />
+              <div className="absolute inset-0 opacity-40 bg-[url('https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/blend-metabolico-premium.jpg')] bg-cover bg-center" />
               <div className="absolute inset-0 bg-black/30" />
               <div className="relative z-10 h-full flex flex-col justify-between">
                 <div>

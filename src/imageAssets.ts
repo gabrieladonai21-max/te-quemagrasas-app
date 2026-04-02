@@ -14,7 +14,7 @@ export const IMAGE_ASSETS = {
     'valeriana': 'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=600&q=80&fit=crop',
     'melissa': 'https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=600&q=80&fit=crop',
     'boldo': 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80&fit=crop',
-    'sopas': 'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80&fit=crop',
+    sopas: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/receitas/sopa-de-calabaza-y-jengibre.jpg',
   },
   ui: {
     splash: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&q=80&auto=format&fit=crop',
@@ -30,14 +30,14 @@ export const IMAGE_ASSETS = {
 // MEDALHAS DE NÍVEIS
 export const LEVEL_MEDALS = {
   // Níveis do protocolo (1-3) - Desbloqueáveis
-  nivel1: 'https://i.ibb.co/9k8HggQZ/Medalha-N-vel-1-Despertar-Activation-Detox.png',
-  nivel2: 'https://i.ibb.co/7tMmYstL/Medalha-N-vel-2-Activaci-n.png',
-  nivel3: 'https://i.ibb.co/DPsK2Xjj/Medalha-Nivel-3-Consolidaci-n-Total.png',
+  nivel1: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/medalha-nivel-1-despertar-activation-detox.png',
+  nivel2: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/medalha-nivel-2-activacion.png',
+  nivel3: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/medalha-nivel-3-consolidacion-total.png',
   
   // Níveis upsell (4-6) - Bloqueados (blur/opaco)
-  nivel4: 'https://i.ibb.co/5xvjs6dJ/N-vel-4-Aceleraci-n-M-xima.png',
-  nivel5: 'https://i.ibb.co/cSm8Nxfn/N-vel-5-Definici-n-Profunda.png',
-  nivel6: 'https://i.ibb.co/BVXJw8Lj/N-vel-6-Mantenimiento-Vital.png',
+  nivel4: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/nivel-4-aceleracion-maxima.png',
+  nivel5: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/nivel-5-definicion-profunda.png',
+  nivel6: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/nivel-6-mantenimiento-vital.png',
 };
 
 // Função helper
@@ -55,12 +55,12 @@ export const getLevelMedal = (level: number): string => {
 
 // ÍCONES TIPOS METABÓLICOS
 export const METABOLIC_ICONS = {
-  A: 'https://i.ibb.co/GQcj3X8k/Tipo-A.png',
-  B: 'https://i.ibb.co/Fbbcf9XQ/Tipo-B.png',
-  C: 'https://i.ibb.co/JFm0NrnL/Tipo-C.png',
-  D: 'https://i.ibb.co/Zzc31dTM/Tipo-D.png',
-  E: 'https://i.ibb.co/q3VHj4sr/Tipo-E.png',
-  F: 'https://i.ibb.co/FLTwbzyZ/Tipo-F.png',
+  A: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/tipo-a.png',
+  B: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/tipo-b.png',
+  C: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/tipo-c.png',
+  D: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/tipo-d.png',
+  E: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/tipo-e.png',
+  F: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/tipo-f.png',
 };
 
 export const getMetabolicIcon = (tipo: 'A' | 'B' | 'C' | 'D' | 'E' | 'F'): string => {
@@ -69,8 +69,8 @@ export const getMetabolicIcon = (tipo: 'A' | 'B' | 'C' | 'D' | 'E' | 'F'): strin
 
 // LOGOS
 export const LOGOS = {
-  favicon: 'https://i.ibb.co/kV57ppRY/Flavicon.png',
-  pwa: 'https://i.ibb.co/pv99XjXM/cone-do-App-PWA.png',
-  horizontal: 'https://i.ibb.co/TMtRGHQq/Logo-Principal-Horizontal.png',
-  vertical: 'https://i.ibb.co/ymsJgF1x/Logo-Redonda-Avatar.png',
+  favicon: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/Flavicon.png',
+  pwa: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png',
+  horizontal: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/logo-principal-horizontal.png',
+  vertical: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/logo-redonda-avatar.png',
 };

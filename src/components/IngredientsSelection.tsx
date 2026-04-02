@@ -7,10 +7,15 @@ interface IngredientsSelectionProps {
 }
 
 const INGREDIENTES_COMUNES = [
+  // Blends & Especias
   'Canela', 'Jengibre', 'Limón', 'Menta', 'Té verde', 'Manzanilla',
   'Cúrcuma', 'Miel', 'Pimienta cayena', 'Cardamomo', 'Clavo',
   'Anís estrellado', 'Té negro', 'Té blanco', 'Hibisco',
   'Romero', 'Tomillo', 'Lavanda',
+  // Verduras & Otros
+  'Acelga', 'Apio', 'Berenjena', 'Brócoli', 'Calabacín', 'Cebolla', 
+  'Cilantro', 'Coliflor', 'Espinaca', 'Manzana Verde', 'Pepino', 
+  'Perejil', 'Pimiento', 'Repollo', 'Tomate'
 ];
 
 export const IngredientsSelection: React.FC<IngredientsSelectionProps> = ({ onSelect }) => {

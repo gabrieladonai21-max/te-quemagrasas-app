@@ -39,7 +39,7 @@ export const MetabolicSelection: React.FC<MetabolicSelectionProps> = ({ onSelect
   const handleFinalConfirm = () => {
     if (selected) {
       setShowModal(false);
-      setShowIngredients(true);
+      onSelect(selected);
     }
   };
 
@@ -225,15 +225,6 @@ export const MetabolicSelection: React.FC<MetabolicSelectionProps> = ({ onSelect
             </div>
           </motion.div>
         </div>
-      )}
-
-      {/* Ingredients Popup */}
-      {showIngredients && selected && (
-        <IngredientsPopup 
-          metabolicType={selected}
-          onSave={handleIngredientsSave}
-          onSkip={handleIngredientsSkip}
-        />
       )}
     </div>
   );
