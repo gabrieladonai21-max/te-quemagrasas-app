@@ -17,6 +17,7 @@ import { SoporteIA } from './components/SoporteIA';
 import { NotificationsSettings } from './components/NotificationsSettings';
 import { MedalPopup } from './components/MedalPopup';
 import { ShoppingList } from './components/ShoppingList';
+import { CookieBanner } from './components/CookieBanner';
 import { UserProfile, MetabolicType } from './types';
 import { Home, Calendar, Lock, Utensils, User } from 'lucide-react';
 
@@ -34,33 +35,24 @@ export default function App() {
   const [recipesInitialTab, setRecipesInitialTab] = useState<'blends' | 'sopas'>('blends');
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstallBtn, setShowInstallBtn] = useState(false);
+  const [cookiesAccepted, setCookiesAccepted] = useState(() => localStorage.getItem('cookiesAccepted') === 'true');
 
   useEffect(() => {
     // Check if already installed
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
-
+    
     if (isStandalone) {
       setShowInstallBtn(false);
-      return;
-    }
-
-    if (isIOS) {
+    } else {
       setShowInstallBtn(true);
     }
 
     const handleBeforeInstallPrompt = (e: any) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      setShowInstallBtn(true);
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
-    window.addEventListener('appinstalled', () => {
-      setShowInstallBtn(false);
-      setDeferredPrompt(null);
-    });
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -68,28 +60,42 @@ export default function App() {
   }, []);
 
   const handleInstallClick = async () => {
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      return;
+    }
+
     if (!deferredPrompt) {
       // Check if iOS
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
       if (isIOS) {
         alert('Para instalar en iOS: Pulsa el botón "Compartir" y selecciona "Añadir a la pantalla de inicio" 📲');
       } else {
-        alert('La instalación nativa no está disponible en este navegador. Inténtalo en Chrome o Edge.');
+        alert('El app ya está instalado en tu dispositivo o tu navegador no soporta la instalação automática.');
       }
       return;
     }
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     if (outcome === 'accepted') {
-      setShowInstallBtn(false);
+      // Keep button visible in browser as per Block 4
     }
     setDeferredPrompt(null);
   };
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('reset') === 'true') {
+      localStorage.removeItem('user');
+      localStorage.removeItem('metabolicType');
+      localStorage.removeItem('ingredientes_disponibles');
+      localStorage.removeItem('cookiesAccepted');
+      localStorage.removeItem('cookiesAcceptedData');
+      window.location.href = window.location.origin + window.location.pathname;
+      return;
+    }
+
     const savedUser = localStorage.getItem('user');
     const savedMetabolicType = localStorage.getItem('metabolicType') as MetabolicType | null;
-    const urlParams = new URLSearchParams(window.location.search);
     const screenParam = urlParams.get('screen') as Screen;
 
     if (savedUser) {
@@ -115,13 +121,17 @@ export default function App() {
 
   const handleLogin = (email: string) => {
     const savedMetabolicType = localStorage.getItem('metabolicType') as MetabolicType | null;
+    const savedIngredients = localStorage.getItem('ingredientes_disponibles');
+    const parsedIngredients = savedIngredients ? JSON.parse(savedIngredients) : [];
+    
     const userName = email.split('@')[0].split('.')[0];
     const capitalizedName = userName.charAt(0).toUpperCase() + userName.slice(1);
     
     const newUser: UserProfile = {
       uid: 'mock-uid', email, name: capitalizedName, completedDays: [], modulos: ['core'],
       medals: [], isPremium: false, isAdmin: false, createdAt: new Date().toISOString(),
-      metabolicType: savedMetabolicType || undefined
+      metabolicType: savedMetabolicType || undefined,
+      ingredientes_disponibles: parsedIngredients
     };
     
     setUser(newUser);
@@ -154,6 +164,7 @@ export default function App() {
       const updatedUser = { ...user, ingredientes_disponibles: ingredients, ingredientes_popup_shown: true };
       setUser(updatedUser);
       localStorage.setItem('user', JSON.stringify(updatedUser));
+      localStorage.setItem('ingredientes_disponibles', JSON.stringify(ingredients));
       navegarPara('dashboard');
     }
   };
@@ -205,7 +216,7 @@ export default function App() {
   const renderScreen = () => {
     switch (screen) {
       case 'splash': return <Splash onComplete={() => navegarPara('login')} />;
-      case 'login': return <Login onLogin={handleLogin} />;
+      case 'login': return <Login onLogin={handleLogin} onInstall={handleInstallClick} showInstallBtn={showInstallBtn} />;
       case 'selection': return <MetabolicSelection onSelect={handleSelectType} currentType={user?.metabolicType} onShowUpsell={() => setShowUpsell('vitalicio')} onBack={user?.metabolicType ? () => navegarPara('profile') : undefined} />;
       case 'ingredients': return user && <IngredientsSelection onSelect={handleSelectIngredients} />;
       case 'dashboard': return user && <Dashboard user={user} onOpenDay={handleOpenDay} onOpenProfile={() => navegarPara('profile')} onOpenShoppingList={() => navegarPara('shopping')} onOpenModule={(id) => {
@@ -234,6 +245,7 @@ export default function App() {
 
   return (
     <Layout>
+      {!cookiesAccepted && <CookieBanner onAccept={() => setCookiesAccepted(true)} />}
       {showStickyHeader && user && (
         <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[72px] z-[100] px-4 md:px-6 flex items-center shadow-lg rounded-b-[20px] text-white max-w-[480px]"
           style={{ background: 'linear-gradient(135deg, #1D4A1A 0%, #2E7D32 100%)' }}>

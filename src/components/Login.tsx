@@ -9,9 +9,11 @@ import { ArrowRight } from 'lucide-react';
 
 interface LoginProps {
   onLogin: (email: string) => void;
+  onInstall?: () => void;
+  showInstallBtn?: boolean;
 }
 
-export const Login: React.FC<LoginProps> = ({ onLogin }) => {
+export const Login: React.FC<LoginProps> = ({ onLogin, onInstall, showInstallBtn }) => {
   const [email, setEmail] = useState('gabrieladonai21@gmail.com');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -98,6 +100,16 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
               >
                 Adquirir mi protocolo
               </button>
+
+              {showInstallBtn && onInstall && (
+                <button
+                  type="button"
+                  onClick={onInstall}
+                  className="w-full h-[44px] bg-[#E8A020]/10 text-[#E8A020] font-bold rounded-[50px] border border-[#E8A020]/20 hover:bg-[#E8A020]/20 transition-all flex items-center justify-center gap-2"
+                >
+                  📲 Instalar App
+                </button>
+              )}
             </div>
           </form>
         </motion.div>
