@@ -69,8 +69,8 @@ export const getMetabolicIcon = (tipo: 'A' | 'B' | 'C' | 'D' | 'E' | 'F'): strin
 
 // LOGOS
 export const LOGOS = {
-  favicon: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/Flavicon.png',
-  pwa: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png',
+  favicon: 'https://i.ibb.co/kV57ppRY/Flavicon.png',
+  pwa: 'https://i.ibb.co/pv99XjXM/cone-do-App-PWA.png',
   horizontal: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/logo-principal-horizontal.png',
   vertical: 'https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/logo-redonda-avatar.png',
 };

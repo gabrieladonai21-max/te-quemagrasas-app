@@ -53,7 +53,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin, onInstall, showInstallBtn
         >
           <div className="text-center mb-10">
             <h2 className="font-serif text-3xl font-bold text-[#1D4A1A] mb-3">
-              Bienvenida de nuevo
+              Bienvenido(a) de nuevo
             </h2>
             <p className="font-sans text-[#1D4A1A]/60 text-sm">
               Ingresa tu correo para continuar tu protocolo.

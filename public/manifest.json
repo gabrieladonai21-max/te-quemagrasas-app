@@ -1,71 +1,25 @@
 {
   "name": "Protocolo Té Quemagrasas",
   "short_name": "Té Quemagrasas",
-  "description": "Tu metabolismo. Tu protocolo.",
+  "description": "Tu metabolismo. Tu protocolo. 21 días.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#1D4A1A",
   "theme_color": "#1D4A1A",
   "icons": [
     {
-      "src": "https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png",
+      "src": "https://i.ibb.co/pv99XjXM/cone-do-App-PWA.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png",
+      "src": "https://i.ibb.co/pv99XjXM/cone-do-App-PWA.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Protocolo",
-      "url": "/?screen=plan",
-      "icons": [{ "src": "https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Recetas",
-      "url": "/?screen=recipes",
-      "icons": [{ "src": "https://wlcyvdqvmgbsrrmamsyv.supabase.co/storage/v1/object/public/assets/icone%20do-app-pwa.png", "sizes": "192x192" }]
     }
   ]
 }
